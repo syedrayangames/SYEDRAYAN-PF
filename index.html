@@ -674,6 +674,28 @@
 </body>
 
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protected Page</title>
+<script>
+// Disable right-click context menu
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+// Disable Control+U
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+    }
+});
+</script>
+</head>
+<body>
+
 <script>/**
  * Untuk membuat link bisa dicopy
  */
@@ -732,5 +754,9 @@ document.querySelectorAll(".sosmed i").forEach((sosmed) => {
 document.addEventListener("scroll", (e) => {
   document.querySelector(".bg-text-animation").style.transform = `translateX(${
     window.scrollY / 5
+  }px)`;
+});</script>
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-31659e58-27fe-4ee4-ace3-65592ababcb7" data-elfsight-app-lazy></div>
   }px)`;
 });</script>
