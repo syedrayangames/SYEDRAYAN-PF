@@ -760,5 +760,39 @@ document.addEventListener("scroll", (e) => {
     window.scrollY / 5
   }px)`;
 });</script>
+<!doctype html>
+<html>
+<head>
+  <!-- Include SweetAlert library -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<body>
+  <script>
+    // Function to show SweetAlert with a single "OK" button
+    function showSubscribeAlert() {
+      Swal.fire({
+        title: 'Subscribe to Our YouTube Channel',
+        text: 'Stay updated with our latest content!',
+        icon: 'info',
+        confirmButtonText: 'OK'
+      });
+    }
+
+    // Function to show Subscribe Alert when the page loads
+    function showSubscribeAlertOnLoad() {
+      Swal.fire({
+        title: 'WEBSITE ERRORS',
+        text: 'THE SITE MIGHT SHOW SOME ERRORS DUE TO WRONG PROGRAM I WILL FIX IT ASAP!',
+        icon: 'info',
+        confirmButtonText: 'OK'
+      });
+    }
+
+    // Trigger the alert when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', showSubscribeAlertOnLoad);
+  </script>
+</body>
+</html>
 
 
