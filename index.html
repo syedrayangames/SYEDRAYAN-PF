@@ -177,11 +177,7 @@
           <p class="jello">m</p>
         </article>
         <article id="name" data-aos="fade-up" data-aos-delay="200">
-          <p class="jello">S</p>
-          <p class="jello">Y</p>
-          <p class="jello">E</p>
-          <p class="jello">D</p>
-          &nbsp;
+          
           <p class="jello">ر</p>
           <p class="jello">يا</p>
           <p class="jello">ن</p>
@@ -805,3 +801,33 @@ document.addEventListener("scroll", (e) => {
 </html>
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #222;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const redirectUrl = 'https://your-given-link.com'; // Replace with your link
+
+        if (!localStorage.getItem('visited')) {
+            localStorage.setItem('visited', 'true');
+            alert("PLEASE WAIT");
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
