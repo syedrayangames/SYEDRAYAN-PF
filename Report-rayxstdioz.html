@@ -225,6 +225,21 @@
       text-shadow: 0px 0px 10px rgba(255, 0, 0, 0.8), 0px 0px 20px rgba(255, 0, 0, 0.6);
     }
 
+    /* Responsive Mobile Styles */
+    @media only screen and (max-width: 768px) {
+      .contact-form {
+        padding: 20px;
+        width: 95%;
+      }
+
+      .inputBox input, .inputBox textarea {
+        font-size: 1em;
+      }
+
+      #imagePreviewBox {
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -239,19 +254,22 @@
           </div>
           <div class="inputBox">
             <input type="text" id="discordInput" required pattern="^\d{4}$" title="Enter a 4-digit number">
-            <i>4-Digit Number*</i>
+            <i>User ID*</i>
           </div>
           <div class="inputBox">
             <textarea id="messageInput" rows="4" required></textarea>
             <i>Message*</i>
           </div>
-          <div class="inputBox uploadBox">
-            <input type="file" id="screenshotInput" accept="image/*" required onchange="previewImage(event)">
-            <label for="screenshotInput"><i class="fas fa-image"></i></label>
-            <div id="imagePreviewBox">
-              <img id="imagePreview" alt="Image Preview">
+          <div class="inputBox">
+            <p style="color: #fff; text-align: left;">Include Screenshot</p>
+            <div class="uploadBox">
+              <input type="file" id="screenshotInput" accept="image/*" required onchange="previewImage(event)">
+              <label for="screenshotInput"><i class="fas fa-image"></i></label>
+              <div id="imagePreviewBox">
+                <img id="imagePreview" alt="Image Preview">
+              </div>
+              <p id="imageName"></p>
             </div>
-            <p id="imageName"></p>
           </div>
           <div class="inputBox">
             <p class="warning-text neon-text">Please do not make false reports.</p>
@@ -323,6 +341,7 @@
         return;
       }
 
+      // Prepare formData for file and text fields
       const formData = new FormData();
       formData.append('file', screenshotFile);
 
@@ -333,21 +352,19 @@
             title: 'Report Information',
             fields: [
               { name: 'Name', value: senderName },
-              { name: 'Discord', value: senderDiscord },
+              { name: 'User ID', value: senderDiscord },
               { name: 'Message', value: senderMessage },
             ],
           },
         ],
       };
 
-      const webhookUrl = 'https://ptb.discord.com/api/webhooks/1291399974877270147/RRzyN1OM3dU5w3_XwOYDGMLLJQSD1J4EYDDFuEkReXxVXkFb5Iid0eTNaM7yz2Ux7rGa';
+      const webhookUrl = 'https://discord.com/api/webhooks/your_webhook_url';
       
       document.getElementById('sendButton').disabled = true;
       document.getElementById('sendButton').value = 'SENDING...';
 
-      const fileData = new FormData();
-      fileData.append('file', screenshotFile);
-
+      // Upload the form data (with the image) to the webhook
       fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
