@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DISCORD REPORT FORM</title>
+  <title>RAYXSTDIOZ REPORT FORM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -305,11 +305,11 @@
       const screenshotFile = document.getElementById('screenshotInput').files[0];
 
       // Basic validation for name and message
-      if (senderName.length < 5) {
+      if (senderName.length < 1) {
         Swal.fire({
           icon: 'error',
           title: 'Invalid Name',
-          text: 'Name must be at least 5 characters long.'
+          text: 'Name must be at least 1 character long.'
         });
         return;
       }
@@ -340,10 +340,13 @@
         ],
       };
 
-      const webhookUrl = 'https://discord.com/api/webhooks/your_webhook_url';
+      const webhookUrl = 'https://ptb.discord.com/api/webhooks/1291399974877270147/RRzyN1OM3dU5w3_XwOYDGMLLJQSD1J4EYDDFuEkReXxVXkFb5Iid0eTNaM7yz2Ux7rGa';
       
       document.getElementById('sendButton').disabled = true;
       document.getElementById('sendButton').value = 'SENDING...';
+
+      const fileData = new FormData();
+      fileData.append('file', screenshotFile);
 
       fetch(webhookUrl, {
         method: 'POST',
@@ -358,6 +361,8 @@
             showConfirmButton: false,
             timer: 5000,
           });
+
+          localStorage.setItem('lastSubmitTime', Date.now());
 
           document.getElementById('contactForm').reset();
           document.getElementById('imagePreviewBox').style.display = 'none';
@@ -380,6 +385,19 @@
         console.error('Error:', error);
       });
     }
+
+    // Check cooldown before allowing form submission
+    document.addEventListener("DOMContentLoaded", function() {
+      const lastSubmitTime = localStorage.getItem('lastSubmitTime');
+      if (lastSubmitTime && Date.now() - lastSubmitTime < 24 * 60 * 60 * 1000) {
+        document.getElementById('sendButton').disabled = true;
+        Swal.fire({
+          icon: 'info',
+          title: 'Cooldown Active',
+          text: 'You have already submitted a report. Please wait 24 hours before submitting again.',
+        });
+      }
+    });
   </script>
 </body>
 </html>
