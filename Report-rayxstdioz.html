@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DISCORD REPORT FORM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"></script> <!-- Font Awesome Icons -->
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+    
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* Section Styles */
+    section {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2px;
+      flex-wrap: wrap;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(#000, #ff0000, #000);
+      animation: animate 5s linear infinite;
+    }
+
+    @keyframes animate {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(100%);
+      }
+    }
+
+    /* Form Styles */
+    section .contact-form {
+      position: relative;
+      width: 100%;
+      max-width: 450px;
+      background: #222;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      border-radius: 4px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+    }
+
+    section .contact-form .content {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    section .contact-form .content h2 {
+      font-size: 2em;
+      color: #ff0000;
+      text-transform: uppercase;
+    }
+
+    section .contact-form .content .form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    section .contact-form .content .form .inputBox {
+      position: relative;
+      width: 100%;
+    }
+
+    section .contact-form .content .form .inputBox input,
+    section .contact-form .content .form .inputBox textarea {
+      position: relative;
+      width: 100%;
+      background: #333;
+      border: none;
+      outline: none;
+      padding: 20px 10px 7.5px;
+      border-radius: 4px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1em;
+    }
+
+    section .contact-form .content .form .inputBox i {
+      position: absolute;
+      left: 0;
+      padding: 15px 10px;
+      font-style: normal;
+      color: #aaa;
+      transition: 0.5s;
+      pointer-events: none;
+    }
+
+    .contact-form .content .form .inputBox input:focus ~ i,
+    .contact-form .content .form .inputBox input:valid ~ i,
+    .contact-form .content .form .inputBox textarea:focus ~ i,
+    .contact-form .content .form .inputBox textarea:valid ~ i {
+      transform: translateY(-7.5px);
+      font-size: 0.8em;
+      color: #ff0000;
+    }
+
+    /* Submit Button */
+    .contact-form .content .form .inputBox input[type="submit"] {
+      padding: 10px;
+      background: #ff0000;
+      color: #000;
+      font-weight: 600;
+      font-size: 1.35em;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    input[type="submit"]:active {
+      opacity: 0.6;
+    }
+
+    /* Image Upload */
+    .contact-form .content .form .inputBox .uploadBox {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-form .content .form .inputBox .uploadBox input[type="file"] {
+      display: none;
+    }
+
+    .contact-form .content .form .inputBox .uploadBox label {
+      background: #ff0000;
+      color: #fff;
+      padding: 15px 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+      transition: background 0.3s ease-in-out;
+    }
+
+    .contact-form .content .form .inputBox .uploadBox label:hover {
+      background: #ff4d4d;
+    }
+
+    .contact-form .content .form .inputBox .uploadBox img {
+      max-width: 100px;
+      max-height: 100px;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .contact-form .content .form .inputBox .uploadBox p {
+      color: #fff;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    /* Warning text */
+    .warning-text {
+      color: #fff;
+      font-size: 1.1em;
+      text-align: center;
+      text-shadow: 0px 0px 15px #ff0000;
+      font-weight: bold;
+    }
+
+    /* Image Preview Box */
+    #imagePreviewBox {
+      border: 2px solid #ff0000;
+      padding: 10px;
+      border-radius: 10px;
+      display: none;
+      background-color: #000;
+      max-width: 200px;
+    }
+
+    #imagePreviewBox img {
+      max-width: 100%;
+    }
+
+    /* Red Neon Text */
+    .neon-text {
+      color: #fff;
+      text-shadow: 0px 0px 10px rgba(255, 0, 0, 0.8), 0px 0px 20px rgba(255, 0, 0, 0.6);
+    }
+
+  </style>
+</head>
+<body>
+  <section>
+    <div class="contact-form">
+      <div class="content">
+        <h2>DISCORD REPORT FORM</h2>
+        <form class="form" id="contactForm" onsubmit="sendContact(event)">
+          <div class="inputBox">
+            <input type="text" id="nameInput" required>
+            <i>Display name*</i>
+          </div>
+          <div class="inputBox">
+            <input type="text" id="discordInput" required pattern="^\d{4}$" title="Enter a 4-digit number">
+            <i>4-Digit Number*</i>
+          </div>
+          <div class="inputBox">
+            <textarea id="messageInput" rows="4" required></textarea>
+            <i>Message*</i>
+          </div>
+          <div class="inputBox uploadBox">
+            <input type="file" id="screenshotInput" accept="image/*" required onchange="previewImage(event)">
+            <label for="screenshotInput"><i class="fas fa-image"></i></label>
+            <div id="imagePreviewBox">
+              <img id="imagePreview" alt="Image Preview">
+            </div>
+            <p id="imageName"></p>
+          </div>
+          <div class="inputBox">
+            <p class="warning-text neon-text">Please do not make false reports.</p>
+          </div>
+          <div class="inputBox">
+            <input type="submit" id="sendButton" value="SEND">
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Handle image preview
+    function previewImage(event) {
+      const file = event.target.files[0];
+      const imageName = document.getElementById('imageName');
+      const imagePreview = document.getElementById('imagePreviewBox');
+      const imagePreviewElement = document.getElementById('imagePreview');
+      const imageMaxSize = 5 * 1024 * 1024; // 5MB
+
+      if (file) {
+        if (file.size > imageMaxSize) {
+          Swal.fire({
+            icon: 'error',
+            title: 'File too large',
+            text: 'Please upload an image smaller than 5MB.'
+          });
+          event.target.value = '';  // Clear the input
+          imagePreview.style.display = 'none';
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imagePreviewElement.src = e.target.result;
+          imagePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+        imageName.textContent = file.name;
+      }
+    }
+
+    // Send contact form
+    async function sendContact(event) {
+      event.preventDefault();
+
+      const senderName = document.getElementById('nameInput').value;
+      const senderDiscord = document.getElementById('discordInput').value;
+      const senderMessage = document.getElementById('messageInput').value;
+      const screenshotFile = document.getElementById('screenshotInput').files[0];
+
+      // Basic validation for name and message
+      if (senderName.length < 5) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Name',
+          text: 'Name must be at least 5 characters long.'
+        });
+        return;
+      }
+
+      if (!screenshotFile) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Missing Screenshot',
+          text: 'You must upload a screenshot.'
+        });
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', screenshotFile);
+
+      const webhookBody = {
+        content: 'New Report Information',
+        embeds: [
+          {
+            title: 'Report Information',
+            fields: [
+              { name: 'Name', value: senderName },
+              { name: 'Discord', value: senderDiscord },
+              { name: 'Message', value: senderMessage },
+            ],
+          },
+        ],
+      };
+
+      const webhookUrl = 'https://discord.com/api/webhooks/your_webhook_url';
+      
+      document.getElementById('sendButton').disabled = true;
+      document.getElementById('sendButton').value = 'SENDING...';
+
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(webhookBody),
+      })
+      .then(response => {
+        if (response.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Thanks for your report!',
+            showConfirmButton: false,
+            timer: 5000,
+          });
+
+          document.getElementById('contactForm').reset();
+          document.getElementById('imagePreviewBox').style.display = 'none';
+          document.getElementById('sendButton').disabled = false;
+          document.getElementById('sendButton').value = 'SEND';
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'An error occurred while sending your report.',
+          });
+        }
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Something went wrong, please try again later.',
+        });
+        console.error('Error:', error);
+      });
+    }
+  </script>
+</body>
+</html>
